@@ -30,7 +30,7 @@ def shuffle_slides(input_file, output_file=None):
     if not input_path.exists():
         raise FileNotFoundError(f"Input file not found: {input_file}")
     
-    if not input_path.suffix.lower() in ['.pptx', '.ppt']:
+    if input_path.suffix.lower() not in ['.pptx', '.ppt']:
         raise ValueError(f"Input file must be a PowerPoint file (.pptx or .ppt): {input_file}")
     
     # Determine output file path
@@ -62,7 +62,9 @@ def shuffle_slides(input_file, output_file=None):
     print(f"Shuffling slides with new order: {slide_indices}")
     
     # Reorder slides by manipulating the slide list directly
-    # Get the slide part list
+    # Note: This uses private API (_sldIdLst) as python-pptx doesn't provide
+    # a public method for reordering slides. This is the most efficient approach
+    # that avoids duplicating layout resources.
     slides_list = prs.slides._sldIdLst
     
     # Get all slide relationships
@@ -102,7 +104,7 @@ Examples:
     
     parser.add_argument(
         'input_file',
-        help='Path to the input PowerPoint file (.pptx)'
+        help='Path to the input PowerPoint file (.pptx or .ppt)'
     )
     
     parser.add_argument(
