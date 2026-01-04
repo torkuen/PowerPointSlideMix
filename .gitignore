@@ -4,6 +4,9 @@ test_presentation_shuffled.pptx
 random_shuffled.pptx
 single_slide.pptx
 single_slide_shuffled.pptx
+test_final.pptx
+*.pptx
+*.ppt
 
 # Python
 __pycache__/
