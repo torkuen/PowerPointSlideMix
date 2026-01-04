@@ -37,8 +37,6 @@ def shuffle_slides(input_file, output_file=None):
     if output_file is None:
         output_file = input_path.stem + '_shuffled' + input_path.suffix
     
-    output_path = Path(output_file)
-    
     print(f"Loading presentation from: {input_file}")
     
     # Load the presentation
@@ -73,9 +71,8 @@ def shuffle_slides(input_file, output_file=None):
     # Create a new list in shuffled order
     shuffled_rels = [slide_rels[i] for i in slide_indices]
     
-    # Clear the current slide list
-    for _ in range(len(slide_rels)):
-        slides_list.remove(slides_list[0])
+    # Clear the current slide list efficiently
+    slides_list.clear()
     
     # Add slides back in shuffled order
     for rel in shuffled_rels:
